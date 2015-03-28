@@ -11,6 +11,7 @@ void mainMenu(vector<Planet>& table)
 	string choice;
 	int choiceInt = -1;
 	do {
+		system("cls");
 		cout << "----- CIALA NIEBIESKIE -----" << endl << endl;
 		cout << "Wybierz cialo niebieskie: " << endl;
 		for (int i = 0; i < table.size(); i++) {
@@ -19,6 +20,7 @@ void mainMenu(vector<Planet>& table)
 		cout << endl;
 		cout << "[ADD] Dodaj nowe cialo niebieskie" << endl;
 		cout << "[DEL] Usun cialo niebieskie" << endl;
+		cout << endl;
 		cout << "[0] Wyjscie z programu" << endl << endl;
 		cout << "Twoj wybor: ";
 		
@@ -33,6 +35,7 @@ void mainMenu(vector<Planet>& table)
 			table.push_back(Planet(name));
 			cout << "Dodano pomyslnie!" << endl << endl;
 			saveNamesToFile(table);
+			system("pause");
 		}
 		else if (choice == "del") {
 			int num;
@@ -51,9 +54,9 @@ void mainMenu(vector<Planet>& table)
 					table.erase(table.begin() + num - 1);
 					cout << "Usunieto pomyslnie!" << endl;
 					saveNamesToFile(table);
+					system("pause");
 				}
 			}
-
 		}
 		else {
 			choiceInt = atoi(choice.c_str());
@@ -68,6 +71,7 @@ void mainMenu(vector<Planet>& table)
 			}
 			else {
 				cout << "Niepoprawy wybor!" << endl << endl << endl;
+				system("pause");
 				choiceInt = -1;
 			}
 		}
@@ -79,6 +83,7 @@ void mainMenu(vector<Planet>& table)
 void planetMenu(vector<Planet>& table, int planetNumber) {
 	int choice = -1;
 	do {
+		system("cls");
 		cout << "Aktualne cialo niebieskie to: " << table[planetNumber].getName() << endl;
 		cout << "Liczba parametrow: " << table[planetNumber].getParametersCount() << endl;
 		cout << endl;
@@ -91,7 +96,6 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 
 		cin >> choice;
 		cout << endl;
-
 		switch (choice) {
 		case 1: {
 					if (table[planetNumber].getParametersCount() > 0){
@@ -102,6 +106,7 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 						cout << endl << endl;
 					}
 					else cout << "Brak parametrow." << endl << endl;
+					system("pause");
 					break;
 		}
 		case 2: {
@@ -113,6 +118,8 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 					getline(cin, value);
 					table[planetNumber].addParameter(name, value);
 					cout << "Dodano pomyslnie." << endl;
+					table[planetNumber].savePlanetParameters();
+					system("pause");
 					break;
 		}
 		case 3: {
@@ -143,7 +150,10 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 						getline(cin, value);
 						table[planetNumber].editParameterValue(parNum, value);
 					}
+					//saveParametersToFile(table[planetNumber]);
+					table[planetNumber].savePlanetParameters();
 					cout << "Edytowano parametr pomyslnie!" << endl;
+					system("pause");
 					break;
 		}
 		case 4: {
@@ -159,14 +169,18 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 						cout << "Ktory parametr chcesz usunac? : ";
 						cin >> parNum;
 						table[planetNumber].deleteParameter(parNum - 1);
+						//saveParametersToFile(table[planetNumber]);
+						table[planetNumber].savePlanetParameters();
 					}
 					else cout << "Brak parametrow." << endl << endl;
+					system("pause");
 					break;
 		}
 		case 0: 
 			break;
 		default: {
 					 cout << "Niepoprawny wybor!" << endl;
+					 system("pause");
 					 break;
 		}
 		}
@@ -180,9 +194,9 @@ void loadNamesFromFile(vector<Planet>& table)
 	fstream AOnamesFile;
 	AOnamesFile.open("AOList.txt", ios::in);
 	if (AOnamesFile.is_open()) {
-		string line;
-		while (getline(AOnamesFile, line)) {
-			table.push_back(Planet(line));
+		string name;
+		while (getline(AOnamesFile, name)) {
+			table.push_back(Planet(name));
 		}
 		AOnamesFile.close();
 	}
