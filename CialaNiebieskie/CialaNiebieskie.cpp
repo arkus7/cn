@@ -4,15 +4,15 @@
 #include "stdafx.h"
 #include <iostream>
 
+
+using namespace std;
+
 int _tmain(int argc, _TCHAR* argv[])
 {
-	Planet solarSystem[] = { 
-								Planet("Sun"), Planet("Mercury"), Planet("Venus"),
-								Planet("Earth"), Planet("Mars"), Planet("Jupiter"),
-								Planet("Saturn"), Planet("Uranus"), Planet("Neptune") 
-							};
-	mainMenu(solarSystem);
-
+	vector<Planet> astronomicalObjects;
+	loadNamesFromFile(astronomicalObjects);
+	loadParametersFromFiles(astronomicalObjects);
+	mainMenu(astronomicalObjects);
 	return 0;
 }
 
