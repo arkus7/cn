@@ -13,3 +13,7 @@
 
 
 // TODO: W tym miejscu odwo³aj siê do dodatkowych nag³ówków wymaganych przez program
+
+#include "mainFunctions.h"
+#include "Planet.h"
+#include "Parameter.h"
