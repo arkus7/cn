@@ -66,3 +66,11 @@ std::string Planet::getParameter(int parameterNumber)
 {
 	return parametersList[parameterNumber].getParameter();
 }
+
+
+// Deletes choosen parameter.
+void Planet::deleteParameter(int parameterNumber)
+{
+	parametersList.erase(parametersList.begin() + parameterNumber);
+	numberOfParameters--;
+}

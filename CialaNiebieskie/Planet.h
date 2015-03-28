@@ -17,9 +17,9 @@ public:
 	// Adds a Parameter to a planet.
 	void addParameter(string ParameterName, string value);
 	// Edits a 'ParameterNumber' Parameter.
-	void editParameterName(int ParameterNumber, string newName);
+	void editParameterName(int parameterNumber, string newName);
 	// Edits a 'ParameterNumber' value.
-	void editParameterValue(int ParameterNumber, string newValue);
+	void editParameterValue(int parameterNumber, string newValue);
 private:
 	int numberOfParameters;
 	string name;
@@ -27,5 +27,7 @@ private:
 public:
 	int getParametersCount();
 	std::string getParameter(int parameterNumber);
+	// Deletes choosen parameter.
+	void deleteParameter(int parameterNumber);
 };
 
