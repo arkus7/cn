@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Planet.h"
+#include <fstream>
 
 using namespace std;
 
@@ -25,9 +26,17 @@ string Planet::getName()
 }
 
 
-// Saves planet Parameters to file. Every planets ends with '---'.
+// Saves planet Parameters to file.
 void Planet::savePlanetParameters()
 {
+	fstream planetFile;
+	planetFile.open("objects/" + getNameWithoutSpaces() + ".txt", ios::out);
+	if (planetFile.is_open()) {
+		for (int i = 0; i < getParametersCount(); i++) {
+			planetFile << getParameterName(i) << endl << getParameterValue(i) << endl;
+		}
+	}
+	planetFile.close();
 }
 
 
@@ -72,10 +81,21 @@ void Planet::deleteParameter(int parameterNumber)
 }
 
 
-string Planet::getNameWithoutSpaces() {
+string Planet::getNameWithoutSpaces() 
+{
 	string name = getName();
 	for (int i = 0; i < name.length(); i++) {
 		if (name[i] == ' ') name[i] = '_';
 	}
 	return name;
+}
+
+string Planet::getParameterName(int parNum)
+{
+	return parametersList[parNum].getName();
+}
+
+string Planet::getParameterValue(int parNum)
+{
+	return parametersList[parNum].getValue();
 }

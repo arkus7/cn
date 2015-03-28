@@ -21,7 +21,6 @@ public:
 	// Edits a 'ParameterNumber' value.
 	void editParameterValue(int parameterNumber, string newValue);
 private:
-	//int numberOfParameters;
 	string name;
 	vector<Parameter> parametersList;
 public:
@@ -30,6 +29,7 @@ public:
 	// Deletes choosen parameter.
 	void deleteParameter(int parameterNumber);
 	string getNameWithoutSpaces();
-	void incrementNumberOfParameters();
+	string getParameterName(int parNum);
+	string getParameterValue(int parNum);
 };
 
