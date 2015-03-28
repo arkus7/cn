@@ -5,13 +5,11 @@ using namespace std;
 
 Planet::Planet()
 {
-	numberOfParameters = 0;
 }
 
 Planet::Planet(string name)
 {
 	this->name = name;
-	numberOfParameters = 0;
 }
 
 
@@ -38,7 +36,6 @@ void Planet::addParameter(string parameterName, string value)
 {
 	Parameter param = Parameter(parameterName, value);
 	parametersList.push_back(param);
-	numberOfParameters++;
 }
 
 
@@ -58,7 +55,7 @@ void Planet::editParameterValue(int parameterNumber, string newValue)
 
 int Planet::getParametersCount()
 {
-	return numberOfParameters;
+	return parametersList.size();
 }
 
 
@@ -72,5 +69,13 @@ std::string Planet::getParameter(int parameterNumber)
 void Planet::deleteParameter(int parameterNumber)
 {
 	parametersList.erase(parametersList.begin() + parameterNumber);
-	numberOfParameters--;
+}
+
+
+string Planet::getNameWithoutSpaces() {
+	string name = getName();
+	for (int i = 0; i < name.length(); i++) {
+		if (name[i] == ' ') name[i] = '_';
+	}
+	return name;
 }
