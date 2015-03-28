@@ -1,5 +1,5 @@
 #pragma once
-#include "Parametr.h"
+#include "Parameter.h"
 #include <vector>
 
 using namespace std;
@@ -8,20 +8,24 @@ class Planet
 {
 public:
 	Planet();
+	Planet(string name);
 	~Planet();
-private:
-	string name;
-	vector<Parametr>parametrsList;
-public:
 	// Returns a planet name.
 	string getName();
-	// Saves planet parametrs to file. Every planets ends with '---'.
-	void savePlanetParametrs();
-	// Adds a parametr to a planet.
-	void addParametr(string parametrName, string value);
-	// Edits a 'parametrNumber' parametr.
-	void editParametrName(int parametrNumber, string newName);
-	// Edits a 'parametrNumber' value.
-	void editParametrValue(int parametrNumber, string newValue);
+	// Saves planet Parameters to file. Every planets ends with '---'.
+	void savePlanetParameters();
+	// Adds a Parameter to a planet.
+	void addParameter(string ParameterName, string value);
+	// Edits a 'ParameterNumber' Parameter.
+	void editParameterName(int ParameterNumber, string newName);
+	// Edits a 'ParameterNumber' value.
+	void editParameterValue(int ParameterNumber, string newValue);
+private:
+	int numberOfParameters;
+	string name;
+	vector<Parameter> parametersList;
+public:
+	int getParametersCount();
+	std::string getParameter(int parameterNumber);
 };
 
