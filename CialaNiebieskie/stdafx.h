@@ -17,3 +17,4 @@
 #include "mainFunctions.h"
 #include "Planet.h"
 #include "Parameter.h"
+#include <vector>
