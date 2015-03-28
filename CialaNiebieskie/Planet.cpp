@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Planet.h"
 
+using namespace std;
 
 Planet::Planet()
 {
@@ -31,7 +32,13 @@ void Planet::addParametr(string parametrName, string value)
 }
 
 
-// Edits a 'parametrNumber' parametr.
+// Edits a 'parametrNumber' name.
 void Planet::editParametrName(int parametrNumber, string newName)
+{
+}
+
+
+// Edits a 'parametrNumber' value.
+void Planet::editParametrValue(int parametrNumber, string newValue)
 {
 }

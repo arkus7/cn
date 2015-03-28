@@ -1,4 +1,9 @@
 #pragma once
+#include "Parametr.h"
+#include <vector>
+
+using namespace std;
+
 class Planet
 {
 public:
@@ -6,6 +11,7 @@ public:
 	~Planet();
 private:
 	string name;
+	vector<Parametr>parametrsList;
 public:
 	// Returns a planet name.
 	string getName();
@@ -15,5 +21,7 @@ public:
 	void addParametr(string parametrName, string value);
 	// Edits a 'parametrNumber' parametr.
 	void editParametrName(int parametrNumber, string newName);
+	// Edits a 'parametrNumber' value.
+	void editParametrValue(int parametrNumber, string newValue);
 };
 
