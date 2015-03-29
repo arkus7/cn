@@ -87,7 +87,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CialaNiebieskie.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Parameter.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="stdafx.cpp">
