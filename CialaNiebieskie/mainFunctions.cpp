@@ -18,8 +18,9 @@ void mainMenu(vector<Planet>& table)
 			cout << "[" << i + 1 << "] " << table[i].getName() << endl;
 		}
 		cout << endl;
-		cout << "[ADD] Dodaj nowe cialo niebieskie" << endl;
-		cout << "[DEL] Usun cialo niebieskie" << endl;
+		cout << "[A] Dodaj nowe cialo niebieskie" << endl;
+		cout << "[E] Zmien nazwe" << endl;
+		cout << "[D] Usun cialo niebieskie" << endl;
 		cout << endl;
 		cout << "[0] Wyjscie z programu" << endl << endl;
 		cout << "Twoj wybor: ";
@@ -27,23 +28,46 @@ void mainMenu(vector<Planet>& table)
 		cin >> choice;
 		std::transform(choice.begin(), choice.end(), choice.begin(), ::tolower);
 		
-		if (choice == "add") {
+		if (choice == "a") {
 			string name;
-			cout << "Podaj nazwe: ";
+			cout << "Podaj nazwe (0 - anuluj): ";
 			cin.ignore();
 			getline(cin, name);
-			table.push_back(Planet(name));
-			cout << "Dodano pomyslnie!" << endl << endl;
-			saveNamesToFile(table);
+			if (name != "0") {
+				table.push_back(Planet(name));
+				cout << "Dodano pomyslnie!" << endl;
+				saveNamesToFile(table);
+			}
+			cout << endl;
 			system("pause");
 		}
-		else if (choice == "del") {
+		else if (choice == "e") {
+			int num;
+			string name;
+			for (int i = 0; i < table.size(); i++) {
+				cout << "[" << i + 1 << "] " << table[i].getName() << endl;
+			}
+			cout << endl;
+			cout << "Wybierz numer do edycji (0 - anuluj): ";
+			cin >> num;
+			cout << endl;
+			if (num) {
+				cout << "Podaj nowa nazwe: ";
+				cin.ignore();
+				getline(cin, name);
+				table[num - 1].setName(name);
+				cout << endl << "Edytowano pomyslnie!" << endl << endl;
+				saveNamesToFile(table);
+			}
+			system("pause");
+		}
+		else if (choice == "d") {
 			int num;
 			for (int i = 0; i < table.size(); i++) {
 				cout << "[" << i + 1 << "] " << table[i].getName() << endl;
 			}
 			cout << endl;
-			cout << "Wybierz numer do usuniecia: ";
+			cout << "Wybierz numer do usuniecia (0 - anuluj): ";
 			cin >> num;
 
 			if (num > 0 && num <= table.size()) {
@@ -51,18 +75,21 @@ void mainMenu(vector<Planet>& table)
 				cout << "Czy na pewno chcesz usunac " << table[num - 1].getName() << "? [T/N]: ";
 				cin >> del;
 				if (del == 'T' || del == 't') {
+					string fileName = "objects/" + table[num - 1].getNameWithoutSpaces() + ".txt";
 					table.erase(table.begin() + num - 1);
 					cout << "Usunieto pomyslnie!" << endl;
 					saveNamesToFile(table);
-					system("pause");
+					remove(fileName.c_str());
 				}
 			}
+			cout << endl;
+			system("pause");
 		}
 		else {
 			choiceInt = atoi(choice.c_str());
 			if (choiceInt > 0 && choiceInt <= table.size())
 				planetMenu(table, choiceInt - 1);
-			else if (choice.length() == 1) {
+			else if (choice == "0") {
 				char exit;
 				cout << "Czy na pewno chcesz zakonczyc program? [T/N] ";
 				cin >> exit;
@@ -150,7 +177,6 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 						getline(cin, value);
 						table[planetNumber].editParameterValue(parNum, value);
 					}
-					//saveParametersToFile(table[planetNumber]);
 					table[planetNumber].savePlanetParameters();
 					cout << "Edytowano parametr pomyslnie!" << endl;
 					system("pause");
@@ -169,7 +195,6 @@ void planetMenu(vector<Planet>& table, int planetNumber) {
 						cout << "Ktory parametr chcesz usunac? : ";
 						cin >> parNum;
 						table[planetNumber].deleteParameter(parNum - 1);
-						//saveParametersToFile(table[planetNumber]);
 						table[planetNumber].savePlanetParameters();
 					}
 					else cout << "Brak parametrow." << endl << endl;
