@@ -12,11 +12,10 @@ public:
 	std::string getValue();
 	void setName(std::string name);
 	void setValue(std::string value);
+	// Returns name + value in a string.
+	std::string getParameter();
 private:
 	std::string name;
 	std::string value;
-public:
-	// Returns name + value in a string.
-	std::string getParameter();
 };
 
