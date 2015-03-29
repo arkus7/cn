@@ -99,3 +99,8 @@ string Planet::getParameterValue(int parNum)
 {
 	return parametersList[parNum].getValue();
 }
+
+void Planet::setName(string newName)
+{
+	name = newName;
+}

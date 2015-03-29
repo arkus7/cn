@@ -20,10 +20,6 @@ public:
 	void editParameterName(int parameterNumber, string newName);
 	// Edits a 'ParameterNumber' value.
 	void editParameterValue(int parameterNumber, string newValue);
-private:
-	string name;
-	vector<Parameter> parametersList;
-public:
 	int getParametersCount();
 	std::string getParameter(int parameterNumber);
 	// Deletes choosen parameter.
@@ -31,5 +27,9 @@ public:
 	string getNameWithoutSpaces();
 	string getParameterName(int parNum);
 	string getParameterValue(int parNum);
+	void setName(string newName);
+private:
+	string name;
+	vector<Parameter> parametersList;
 };
 
