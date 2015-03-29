@@ -43,7 +43,6 @@ void mainMenu(vector<Planet>& table)
 		}
 		else if (choice == "e") {
 			int num;
-			string name;
 			for (int i = 0; i < table.size(); i++) {
 				cout << "[" << i + 1 << "] " << table[i].getName() << endl;
 			}
@@ -52,12 +51,25 @@ void mainMenu(vector<Planet>& table)
 			cin >> num;
 			cout << endl;
 			if (num) {
+				string name, nameWS; // nameWS - name with spaces
+				string oldName = "objects/" + table[num - 1].getNameWithoutSpaces() + ".txt";
 				cout << "Podaj nowa nazwe: ";
 				cin.ignore();
 				getline(cin, name);
-				table[num - 1].setName(name);
-				cout << endl << "Edytowano pomyslnie!" << endl << endl;
-				saveNamesToFile(table);
+				nameWS = name;
+				for (int i = 0; i < name.length(); i++) {
+					if (name[i] == ' ') name[i] = '_';
+				}
+				string newName = "objects/" + name + ".txt";
+				int changeName = rename(oldName.c_str(), newName.c_str());
+				if (!changeName) {
+					table[num - 1].setName(nameWS);
+					cout << endl << "Edytowano pomyslnie!" << endl << endl;
+					saveNamesToFile(table);
+				}
+				else {
+					cout << "Istnieje juz taka nazwa!" << endl;
+				}
 			}
 			system("pause");
 		}
@@ -227,10 +239,16 @@ void loadNamesFromFile(vector<Planet>& table)
 	}
 	else {
 		AOnamesFile.open("AOList.txt", ios::out | ios::app);
-		string ao[] = { "Slonce", "Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran", "Neptun" };
+		fstream parametersFiles;
+		string ao[] = { "Merkury", "Wenus", "Ziemia", "Mars", "Jowisz", "Saturn", "Uran", "Neptun", "Slonce" };
 		for (int i = 0; i < 9; i++) {
 			AOnamesFile << ao[i] << endl;
 			table.push_back(Planet(ao[i]));
+			string fileName = "objects/" + ao[i] + ".txt";
+			parametersFiles.open(fileName.c_str(), ios::out);
+			if (parametersFiles.is_open()) {
+				parametersFiles.close();
+			}
 		}
 	}
 }
